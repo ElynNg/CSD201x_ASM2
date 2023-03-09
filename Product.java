@@ -1,3 +1,5 @@
+import java.io.PrintStream;
+
 class Product {
     private String id;
     String title;
@@ -45,10 +47,7 @@ class Product {
         return price;
     }
 
-    void display(){
-
-    }
     public String toString(){
-        return getID() + " " + getTitle() + " " + getQuantity() + " " + getPrice();
+        return String.format("%5s | %10s | %5d | %.1f", getID(), getTitle(), getQuantity(), getPrice());
     }
 }

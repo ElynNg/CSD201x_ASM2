@@ -1,13 +1,13 @@
-class Node<T> {
-    T info;
+class Node {
+    Product info;
     Node nextNode;
 
-    Node(T data, Node<T> p){
+    Node(Product data, Node p){
         this.info = data;
         this.nextNode = p;
     }
 
-    Node(T data){
+    Node(Product data){
         this.info = data;
     }
 
@@ -16,14 +16,14 @@ class Node<T> {
     }
 
     String getData(){
-        return this.info.toString();
+        return String.format("%5s | %10s | %5d | %.1f", info.getID(), info.getTitle(), info.getQuantity(), info.getPrice());
     }
 
-    void setNextNode(Node<T> nextNode){
+    void setNextNode(Node nextNode){
         this.nextNode = nextNode;
     }
 
-    void setData(T data){
+    void setData(Product data){
         this.info = data;
     }
 }

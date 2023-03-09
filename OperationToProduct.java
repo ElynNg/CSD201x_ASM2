@@ -1,11 +1,10 @@
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
+import java.lang.reflect.Array;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 class OperationToProduct {
-    static int menu(){
+    static int menu() {
         Scanner input = new Scanner(System.in);
         System.out.println("Choose one of these options: ");
         System.out.println("Product list: ");
@@ -24,11 +23,11 @@ class OperationToProduct {
         return input.nextInt();
     }
 
-    int index(Product p, MyList<Product> list){
+    int index(Product p, MyList<Product> list) {
         return -1;
     }
-    
-    static Product createProduct(String s){
+
+    static Product createProduct(String s) {
         Product p = new Product();
         String[] temp = s.split("\\|");
         p.setID(temp[0].trim());
@@ -38,7 +37,7 @@ class OperationToProduct {
         return p;
     }
 
-    static Product createProduct(){
+    static Product createProduct() {
         Scanner input = new Scanner(System.in);
         Product p = new Product();
         System.out.println("Item ID: ");
@@ -51,7 +50,7 @@ class OperationToProduct {
         p.setQuantity(input.nextInt());
 
         System.out.println("Item Price: ");
-        p.setPrice((Double)input.nextDouble());
+        p.setPrice((Double) input.nextDouble());
 
         return p;
     }
@@ -62,20 +61,52 @@ class OperationToProduct {
         try {
             FileReader fr = new FileReader(fileName);
             BufferedReader br = new BufferedReader(fr);
-            while ((temp = br.readLine()) != null){
+            while ((temp = br.readLine()) != null) {
                 productString.add(temp);
             }
             br.close();
             fr.close();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
         System.out.println("Success");
-        for (int i = 2; i < productString.size(); i++){
+        for (int i = 2; i < productString.size(); i++) {
             list.insertToTail(createProduct(productString.get(i)));
         }
     }
 
+    static void getAllItemsFromFile(String fileName) {
+    }
 
+    static void writeAllItemsToFile(String fileName, MyList<Product> list, int length) {
+        try {
+            FileWriter fw = new FileWriter(fileName);
+            for (int i = 0; i < length; i++){
+                fw.write(list.traverseItem(i));
+                fw.write("\n");
+            }
+            fw.close();
+        }
+        catch( Exception e){
+            System.out.println(e);
+        }
+    }
+
+    static void searchByID(MyList<Product> list){
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("Insert item ID to search: ");
+        String id = input.next();
+
+        System.out.println(list.searchByID(id));
+    }
+
+    static void deleteByID(MyList<Product> list){
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("Insert item ID to delete: ");
+        String id = input.next();
+
+        list.deleteByID(id);
+    }
 }

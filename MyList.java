@@ -1,9 +1,11 @@
-class MyList<T> {
-    Node<T> head;
-    Node<T> tail;
+import java.util.ArrayList;
 
-    void insertToHead(T data){
-        Node<T> newNode = new Node<>(data);
+class MyList<T> {
+    Node head;
+    Node tail;
+
+    void insertToHead(Product data){
+        Node newNode = new Node(data);
         newNode.setNextNode(head);
         head = newNode;
 
@@ -12,8 +14,8 @@ class MyList<T> {
         }
     }
 
-    void insertToTail(T data){
-        Node<T> newNode = new Node<>(data);
+    void insertToTail(Product data){
+        Node newNode = new Node(data);
         if (this.head == null){
             insertToHead(data);
         }
@@ -23,23 +25,41 @@ class MyList<T> {
         }
     }
 
-    int length(){
-        int length = 0;
-        Node current = head;
-        while (current != null){
-            length++;
-            current = current.getNextNode();
-        }
-        return length;
-    }
-
     void traverse(){
         System.out.println("Product list: ");
         Node current = head;
-        int length = length();
-        for (int i = 0; i < length; i++){
-            System.out.println(current.getData());;
+
+        while (current != null){
+            System.out.println(current.getData());
             current = current.getNextNode();
         }
     }
+
+    String traverseItem(int index){
+        Node current = head;
+        for (int i = 0; i < index; i++){
+            current = current.getNextNode();
+        }
+        return current.getData();
+    }
+
+    String searchByID(String id){
+        Node current = head;
+        while (current != null){
+            if (current.info.getID().equalsIgnoreCase(id)){
+                return current.getData();
+            }
+            current = current.getNextNode();
+        }
+        return "No result";
+    }
+
+//    void deleteByID(String id){
+//        Node current = head;
+//        while (current != null){
+//            if (current.info.getID().equalsIgnoreCase(id)){
+//
+//            }
+//        }
+//    }
 }
