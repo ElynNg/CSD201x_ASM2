@@ -1,40 +1,91 @@
-import java.util.ArrayList;
-
 class MyList<T> {
     Node head;
     Node tail;
 
+    /*
+       insert new product to head of the linked list
+       @param data: product's information
+     */
     void insertToHead(Product data){
+        //create new Node
         Node newNode = new Node(data);
+
+        //set newNode as linked list head
         newNode.setNextNode(head);
+
+        //update linked list new head
         head = newNode;
 
+        //if there is only one node
+        // head = tail
         if (head.getNextNode() == null){
             tail = head;
         }
     }
 
+    /*
+        insert new node to the end of the linked list
+        @param data: product's information
+     */
     void insertToTail(Product data){
+        //create new node
         Node newNode = new Node(data);
+
+        //if the current linked list is empty then add new node to head of the list
         if (this.head == null){
             insertToHead(data);
         }
+        //else add new node to the end
         else {
+            //set the current tail's nextNode is our new node
             tail.setNextNode(newNode);
+            //update the tail
             tail = newNode;
         }
     }
 
-    void traverse(){
-        System.out.println("Product list: ");
+    /*
+        find the length of the list
+        return length of the list
+     */
+    int length(){
+        int length = 0;
+
+        //start from linked list head
+        Node current = this.head;
+
+        //count++ and move pointer to the new node
+        while (current != null){
+            length++;
+            current = current.getNextNode();
+        }
+        return length;
+    }
+
+    /*
+        traverse item from the list
+     */
+    void traverse(String fileName){
         Node current = head;
 
-        while (current != null){
-            System.out.println(current.getData());
-            current = current.getNextNode();
+        if (current == null){
+            System.out.println("Product list is empty");
+            OperationToProduct.writeAppendToFile(fileName, "Product list is empty");
+        }
+        else {
+            System.out.printf("%5s | %10s | %5s | %5s \n", "ID", "Title", "Quantity", "Price");
+            System.out.println("-------------------------------------");
+            while (current != null) {
+                System.out.println(current.getData());
+                current = current.getNextNode();
+            }
         }
     }
 
+    /*
+        traverse item by their index
+        @param index: product's index in the list
+     */
     String traverseItem(int index){
         Node current = head;
         for (int i = 0; i < index; i++){
@@ -43,23 +94,9 @@ class MyList<T> {
         return current.getData();
     }
 
-    String searchByID(String id){
-        Node current = head;
-        while (current != null){
-            if (current.info.getID().equalsIgnoreCase(id)){
-                return current.getData();
-            }
-            current = current.getNextNode();
+    void clear(){
+        while (head != null){
+            head = head.getNextNode();
         }
-        return "No result";
     }
-
-//    void deleteByID(String id){
-//        Node current = head;
-//        while (current != null){
-//            if (current.info.getID().equalsIgnoreCase(id)){
-//
-//            }
-//        }
-//    }
 }

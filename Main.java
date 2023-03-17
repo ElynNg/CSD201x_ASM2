@@ -1,14 +1,14 @@
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 
 
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
-//        Product newProduct = new Product("P04", "Sugar", 5, 5.4);
         MyList<Product> productList = new MyList<>();
-        int listLength = 0;
+        MyStack<Product> productStack = new MyStack<>();
+        MyQueue<Product> productQueue = new MyQueue<>();
         boolean exit = false;
+        String fileName = "src/product.txt";
+        String outputFile = "src/outputFile.txt";
 
         //1. Display function menu
         while (!exit){
@@ -18,25 +18,62 @@ public class Main {
             }
             switch(choice){
                 case 1:
-                    OperationToProduct.getAllItemsFromFile("C:/JAVA/CSD201x/CSD201x_ASM2/src/product.txt", productList);
-                    productList.traverse();
+                    productList.clear();
+                    OperationToProduct.writeMenuAppendToFile(outputFile, "Choice: " + choice);
+                    OperationToProduct.getAllItemsFromFile(fileName, productList);
+                    productList.traverse(outputFile);
+                    OperationToProduct.writeAppendToFile(outputFile, productList);
                     break;
                 case 2:
-                    productList.insertToTail(OperationToProduct.createProduct());
+                    OperationToProduct.writeMenuAppendToFile(outputFile, "Choice: " + choice);
+                    productList.insertToTail(OperationToProduct.createProduct(outputFile, productList));
+                    OperationToProduct.writeAppendToFile(outputFile, productList);
                     break;
                 case 3:
-                    productList.traverse();
+                    OperationToProduct.writeMenuAppendToFile(outputFile, "Choice: " + choice);
+                    productList.traverse(outputFile);
+                    OperationToProduct.writeAppendToFile(outputFile, productList);
                     break;
                 case 4:
-                    listLength = productList.length();
-                    File data = new File("data.txt");
-                    OperationToProduct.writeAllItemsToFile("C:/JAVA/CSD201x/CSD201x_ASM2/data.txt", productList, listLength);
+                    OperationToProduct.writeMenuAppendToFile(outputFile, "Choice: " + choice);
+                    OperationToProduct.writeAllItemsToFile(fileName, productList, productList.length());
+                    System.out.println("Successfully!");
+                    OperationToProduct.writeAppendToFile(outputFile, productList);
+                    OperationToProduct.writeAppendToFile(outputFile, "Successfully!");
                     break;
                 case 5:
-                    OperationToProduct.searchByID(productList);
+                    OperationToProduct.writeMenuAppendToFile(outputFile, "Choice: " + choice);
+                    OperationToProduct.searchByID(outputFile, productList);
+                    OperationToProduct.writeAppendToFile(outputFile, productList);
                     break;
                 case 6:
-                    OperationToProduct.deleteByID(productList);
+                    OperationToProduct.writeMenuAppendToFile(outputFile, "Choice: " + choice);
+                    OperationToProduct.deleteByID(outputFile, productList);
+                    break;
+                case 7:
+                    OperationToProduct.writeMenuAppendToFile(outputFile, "Choice: " + choice);
+                    OperationToProduct.sortByID(productList);
+                    productList.traverse(outputFile);
+                    System.out.println("Successfully!");
+                    OperationToProduct.writeAppendToFile(outputFile, productList);
+                    break;
+                case 8:
+                    OperationToProduct.writeMenuAppendToFile(outputFile, "Choice: " + choice);
+                    System.out.println(OperationToProduct.convertToBinary(outputFile, productList.head));
+                    OperationToProduct.writeAppendToFile(outputFile, productList);
+                    break;
+                case 9:
+                    productStack.clear();
+                    OperationToProduct.writeMenuAppendToFile(outputFile, "Choice: " + choice);
+                    OperationToProduct.getAllItemsFromFile(fileName, productStack);
+                    OperationToProduct.writeAppendToFile(outputFile, productList);
+                    break;
+                case 10:
+                    productQueue.clear();
+                    OperationToProduct.writeMenuAppendToFile(outputFile, "Choice: " + choice);
+                    OperationToProduct.getAllItemsFromFile(fileName, productQueue);
+                    productQueue.dequeue();
+                    OperationToProduct.writeAppendToFile(outputFile, productList);
                     break;
                 case 0:
                     exit = true;
