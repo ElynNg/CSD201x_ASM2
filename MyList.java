@@ -99,4 +99,44 @@ class MyList<T> {
             head = head.getNextNode();
         }
     }
+
+    void deleteAtHead() {
+        head = head.nextNode;
+    }
+
+    void deleteAtTail() {
+        Node current = head;
+        while (current.getNextNode().getNextNode() != null){
+            current = current.getNextNode();
+        }
+        current.nextNode = null;
+        tail = current;
+    }
+
+    void deleteAtIndex(int index){
+        Node current = head;
+        Node prev = head;
+        int length = length();
+
+        if (index > length){
+            System.out.println("index > length");
+            return;
+        }
+
+        if (index == 1){
+            deleteAtHead();
+            return;
+        }
+
+        if (index == length){
+            deleteAtTail();
+            return;
+        }
+
+        while (--index > 0){
+            prev = current;
+            current = current.getNextNode();
+        }
+        prev.nextNode = current.getNextNode();
+    }
 }

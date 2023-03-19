@@ -334,43 +334,29 @@ class OperationToProduct {
         String id = input.next();
 
         Node current = list.head;
-        Node prev = null;
-        boolean exist = false;
-
-        if (current.info.getID().equalsIgnoreCase(id)) {
-            list.head = current.getNextNode();
-            exist = true;
+        int index = 0;
+        if (current == null){
+            System.out.println("List is empty");
+            return;
         }
         while (current != null){
-            if (!current.info.getID().equalsIgnoreCase(id)){
-                prev = current;
-                current = current.getNextNode();
+            index++;
+            if (current.info.getID().equalsIgnoreCase(id)){
+                break;
             }
-            else {
-                exist = true;
-                if (current.getNextNode() == null){
-                    prev.setNextNode(null);
-                    current = null;
-                }
-                else if (current.getNextNode().getNextNode() == null){
-                    prev.setNextNode(current.getNextNode());
-                    current = null;
-                }
-                else {
-                    prev.setNextNode(current.getNextNode());
-                    current = current.getNextNode().getNextNode();
-                }
-            }
+            current = current.getNextNode();
         }
 
-        if (exist){
-            System.out.println("Deleted!");
-            writeAppendToFile(fileName, "Deleted!");
-        }
-        else {
+        if (current == null){
             System.out.println("No result!");
             writeAppendToFile(fileName, "No result!");
         }
+        else {
+            list.deleteAtIndex(index);
+            System.out.println("Deleted!");
+            writeAppendToFile(fileName, "Deleted!");
+        }
+
     }
 
 
